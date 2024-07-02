@@ -4,7 +4,6 @@ import { useDispatchCart, useCart } from "./ContextReducer";
 const Card = (props) => {
   let dispatch = useDispatchCart();
   let data = useCart();
-  // console.log("CartDAta", data);
   const priceRef = useRef();
   const [qty, setQty] = useState(1);
   const [size, setSize] = useState("");
@@ -70,44 +69,103 @@ const Card = (props) => {
   //   });
   // };
 
+  // const handelAddToCart = async () => {
+  //   let foodToUpdate = await data.find(
+  //     (item) => item.id === props.foodItem._id
+  //   );
+  //   if (foodToUpdate) {
+  //     if (foodToUpdate.size === size) {
+  //       await dispatch({
+  //         type: "UPDATE",
+  //         id: props.foodItem._id,
+  //         price: finalPrice,
+  //         qty: qty,
+  //       });
+  //     } else {
+  //       await dispatch({
+  //         type: "ADD",
+  //         id: props.foodItem._id,
+  //         name: props.foodItem.name,
+  //         price: finalPrice,
+  //         qty: qty,
+  //         size: size,
+  //       });
+  //     }
+  //   } else {
+  //     await dispatch({
+  //       type: "ADD",
+  //       id: props.foodItem._id,
+  //       name: props.foodItem.name,
+  //       price: finalPrice,
+  //       qty: qty,
+  //       size: size,
+  //     });
+  //   }
+  // };
+
   const handelAddToCart = async () => {
-    let foodToUpdate = data.find((item) => item.id === props.foodItem._id);
-    console.log("DATAA", data);
+    let foodToUpdate = await data.find(
+      (item) => item.id === props.foodItem._id && item.size === size
+    );
+    // let foodToUpdate;
+    // data.map((item) => {
+    //   if (item.id === props.foodItem._id) {
+    //     foodToUpdate = item;
+    //   }
+    //   return foodToUpdate;
+    // });
+
+    console.log("foodToUpdate:::", foodToUpdate);
+
+    //   if (foodToUpdate) {
+    //     if (foodToUpdate.size === size) {
+    //       await dispatch({
+    //         type: "UPDATE",
+    //         id: props.foodItem._id,
+    //         price: finalPrice,
+    //         qty: qty,
+    //       });
+    //     } else {
+    //       await dispatch({
+    //         type: "ADD",
+    //         id: props.foodItem._id,
+    //         name: props.foodItem.name,
+    //         price: finalPrice,
+    //         qty: qty,
+    //         size: size,
+    //       });
+    //     }
+    //   } else {
+    //     await dispatch({
+    //       type: "ADD",
+    //       id: props.foodItem._id,
+    //       name: props.foodItem.name,
+    //       price: finalPrice,
+    //       qty: qty,
+    //       size: size,
+    //     });
+    //   }
+    // };
 
     if (foodToUpdate) {
-      console.log("FOOD TO UPDATE ::::", foodToUpdate);
-      if (foodToUpdate.size === size) {
-        console.log("Updating Data");
-        await dispatch({
-          type: "UPDATE",
-          id: props.foodItem._id,
-          price: finalPrice,
-          qty: qty,
-        });
-      } else {
-        console.log("Adding Data 1");
-        await dispatch({
-          type: "ADD",
-          id: props.foodItem._id,
-          name: props.foodItem.name,
-          price: finalPrice,
-          qty: qty,
-          size: size,
-        });
-      }
+      await dispatch({
+        type: "UPDATE",
+        id: props.foodItem._id,
+        size: size,
+        price: finalPrice,
+        qty: qty,
+      });
     } else {
-      console.log("Adding Data 2");
       await dispatch({
         type: "ADD",
         id: props.foodItem._id,
         name: props.foodItem.name,
+        size: size,
         price: finalPrice,
         qty: qty,
-        size: size,
       });
     }
   };
-
   let finalPrice = qty * parseInt(options[size]);
 
   useEffect(() => {
