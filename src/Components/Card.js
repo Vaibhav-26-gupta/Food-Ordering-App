@@ -1,6 +1,10 @@
+import { toast, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useEffect, useRef, useState } from "react";
 import { useDispatchCart, useCart } from "./ContextReducer";
 
+// toast.configure();
 const Card = (props) => {
   let dispatch = useDispatchCart();
   let data = useCart();
@@ -155,6 +159,17 @@ const Card = (props) => {
         price: finalPrice,
         qty: qty,
       });
+      await toast.success("Cart is Updated", {
+        position: "bottom-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Flip,
+      });
     } else {
       await dispatch({
         type: "ADD",
@@ -164,7 +179,19 @@ const Card = (props) => {
         price: finalPrice,
         qty: qty,
       });
+      await toast.success("Item Added To Cart", {
+        position: "bottom-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Flip,
+      });
     }
+    // toast("Hello Geeks");
   };
   let finalPrice = qty * parseInt(options[size]);
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { useCart, useDispatchCart } from "../Components/ContextReducer";
+import { Flip, toast } from "react-toastify";
 export default function Cart() {
   let data = useCart();
   let dispatch = useDispatchCart();
@@ -28,6 +29,17 @@ export default function Cart() {
     console.log("JSON RESPONSE:::::", response);
     if (response.status === 200) {
       dispatch({ type: "DROP" });
+      toast.success("Your Order is Checked Out", {
+        position: "bottom-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Flip,
+      });
     }
   };
 
@@ -79,6 +91,20 @@ export default function Cart() {
           </button>
         </div>
       </div>
+      {/* <ToastContainer position="bottom-right" autoClose={1000} /> */}
+      {/* <ToastContainer
+        position="bottom-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition="Flip"
+      /> */}
     </div>
   );
 }

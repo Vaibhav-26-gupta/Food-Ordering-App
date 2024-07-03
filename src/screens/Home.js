@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "../Components/Card";
 import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
+import { Flip, ToastContainer } from "react-toastify";
 
 function Home() {
   const [search, setSearch] = useState("");
@@ -158,6 +159,19 @@ function Home() {
       <div>
         <Footer />
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+        transition={Flip}
+      />
     </div>
   );
 }
