@@ -7,6 +7,7 @@ const Login = () => {
     password: "",
   });
   let navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch("http://localhost:8080/api/v1/loginuser", {
@@ -26,11 +27,14 @@ const Login = () => {
       alert("Enter Valid Credentials");
     }
     if (json.success) {
+      let rol = JSON.parse(atob(json.authToken.split(".")[1])).user.role;
       localStorage.setItem("userEmail", credentials.email);
       localStorage.setItem("authToken", json.authToken);
-      console.log(localStorage.getItem("authToken"));
-      console.log(localStorage.getItem("userEmail"));
-      navigate("/");
+      if (rol === "admin" || rol === "superAdmin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     }
   };
   const onChange = (event) => {

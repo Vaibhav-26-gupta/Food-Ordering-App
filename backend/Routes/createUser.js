@@ -24,6 +24,7 @@ route.post(
     try {
       await user.create({
         name: req.body.name,
+        role: req.body.role || "user",
         location: req.body.location,
         email: req.body.email,
         password: secPass,
@@ -68,10 +69,13 @@ route.post(
       const data = {
         user: {
           id: userData.id,
+          role: userData.role,
         },
       };
 
-      const awthToken = jwt.sign(data, jwtSecret);
+      const awthToken = jwt.sign(data, jwtSecret, {
+        expiresIn: "1h",
+      });
       return res.json({ success: true, authToken: awthToken });
     } catch (error) {
       console.log(error);

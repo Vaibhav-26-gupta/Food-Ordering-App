@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const Route1 = require("./Routes/createUser");
 const Route2 = require("./Routes/displayData");
+const Route3 = require("./Routes/displayUsers");
+const Route4 = require("./Routes/AddProducts");
 const OrderData = require("./Routes/OrderData");
 
 const mongoDB = require("./db");
@@ -24,6 +26,8 @@ app.get("/", (req, res) => {
 app.use(express.json());
 app.use("/api", Route1);
 app.use("/api", Route2);
+app.use("/api", Route3);
+app.use("/api", Route4);
 app.use("/api", OrderData);
 app.listen(PORT, () => {
   console.log(`Listening to PORT ${PORT}`);

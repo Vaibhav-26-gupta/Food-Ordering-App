@@ -9,7 +9,7 @@ router.post("/v1/orderData", async (req, res) => {
   await data.splice(0, 0, { Order_Date: req.body.order_date });
 
   let eId = await Order.findOne({ email: req.body.email });
-  console.log("eId:::::", eId);
+  // console.log("eId:::::", eId);
 
   if (eId === null) {
     try {

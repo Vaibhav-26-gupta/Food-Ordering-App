@@ -7,7 +7,7 @@ import { useCart } from "./ContextReducer";
 export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("authToken");
-    navigate("/login");
+    navigate("/");
   };
 
   let data = useCart();

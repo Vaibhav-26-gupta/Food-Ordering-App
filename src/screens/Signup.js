@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  let navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
   const [credentials, setcredentials] = useState({
     name: "",
     email: "",
@@ -18,15 +20,17 @@ const Signup = () => {
       body: JSON.stringify({
         name: credentials.name,
         email: credentials.email,
+        role: isAdmin ? "admin" : "user",
         password: credentials.password,
         location: credentials.geolocation,
       }),
     });
     const json = await response.json();
-    console.log(json);
-
+    navigate("/");
     if (!json.success) {
       alert("Enter Valid Credentials");
+    } else {
+      navigate("/login");
     }
   };
   const onChange = (event) => {
@@ -92,6 +96,16 @@ const Signup = () => {
               onChange={onChange}
             />
           </div>
+          {/* <div>
+            <label>
+              <input
+                type="checkbox"
+                checked={isAdmin}
+                onChange={(e) => setIsAdmin(e.target.checked)}
+              />
+              Is Admin
+            </label>
+          </div> */}
           <button type="submit" className="m-3 btn btn-success">
             Submit
           </button>

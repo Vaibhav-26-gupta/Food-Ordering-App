@@ -200,7 +200,7 @@ const Card = (props) => {
   }, []);
 
   return (
-    <div>
+    <>
       <div className="card mt-3" style={{ width: "18rem", maxHeight: "360px" }}>
         <img
           src={props.foodItem.img}
@@ -263,7 +263,7 @@ const Card = (props) => {
           </ul> */}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
